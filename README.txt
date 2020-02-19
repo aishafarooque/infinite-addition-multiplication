@@ -22,16 +22,20 @@ To view the output:
 	cat tc3.out
 	...
 
-To compare the tc#.out and ans#.out files:
+To compare the tc#.out and ans#.out files and see the final grade:
 	bash compareRes.sh
+	cat grade
 
 Explanation for the algorithm: 
 
 	-- This is an iterative solution. I have used loops and two stacks to perform the operations -- 
-	The program reads each line one at a time and stores them into integers bigger_digit and smaller_digit. The integers from these variables are then seperated by each digit into first and second list. The node per digit parameter seperates the digits into the respective size into nodes. 
 
-	Then, before sending the numbers to the addition function, we check for missing numbers, empty lines, and numbers that are equal to or more than 40 digits.
+	Python's built in additional and multiplication operators can only handle digits that are less than or equal to 40 digits. My algorithm can perform calculations on "infinite" digit length numbers by using Python's list data structures. The program first reads each line one at a time and stores them into integers bigger_digit and smaller_digit. The integers from these variables are then seperated by each digit into first and second list.
+
+	Then, before sending the numbers to the respective function, we check for missing numbers, empty lines, and numbers that are equal to or more than 40 digits.
 
 	After passing these checks, the numbers are sent to the addition and multiplication function, respectively, where they are added without using the built-in sum function. I have made my own addition algorithm. 
+
+	Before re-testing the program, make sure to clear the previous tc#.out files as the new result will only to added to the old file. 
 
 -------- 
