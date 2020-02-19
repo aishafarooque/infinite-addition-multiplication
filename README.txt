@@ -32,6 +32,6 @@ Explanation for the algorithm:
 
 	Then, before sending the numbers to the addition function, we check for missing numbers, empty lines, and numbers that are equal to or more than 40 digits.
 
-	After passing these checks, the numbers are sent to the addition function where they are added without using the built-in sum function. I have made my own addition algorithm. 
+	After passing these checks, the numbers are sent to the addition and multiplication function, respectively, where they are added without using the built-in sum function. I have made my own addition algorithm. 
 
 -------- 
