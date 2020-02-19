@@ -162,7 +162,7 @@ def evaluate(st):
 		return "invalid expression"
 
 
-	# Clean the string
+	# Minimalize the string
 	st = st.replace("multiply", "m")
 	st = st.replace("add","a")
 	st = st.replace("(", " ")
@@ -173,6 +173,7 @@ def evaluate(st):
 	loop_debugging = True
 	operations_debugging = True
 
+	# A stack has been used to push and pop the operations/numbers.
 	while (len(stack) != 1):
 		tempstack = []
 		for i in range(0,len(stack)-1):
@@ -201,7 +202,6 @@ filename = find_file_name(str(sys.argv),"input=", ";")
 
 with open(filename) as fp:
 	line = fp.readline()
-	line = line.replace(' ', '')			# Clean the line and remove spaces
 	cnt = 1
 
 	# Iterative solution
@@ -217,7 +217,7 @@ with open(filename) as fp:
 			secondnum = (find_between(original_string, ",", ")"))
 
 			if (firstnum == -999):
-				# Means the number was not found
+				# Means the first number was not found
 				line = line[:-1]			# Remove new line from the end
 				print (str(line) + "=invalid expression")
 				pass
@@ -233,16 +233,7 @@ with open(filename) as fp:
 				line = line[:-1]
 				print (str(line) + "=invalid expression")
 			else:
-				# The numbers are sent to the evaluate function
-				bigger_digit = find_bigger_number(firstnum,secondnum)
-				len_of_bigger_digit = len(str(bigger_digit))-1
-
-				smaller_digit = find_smaller_number(firstnum,secondnum)
-				len_of_smaller_digit = len(str(smaller_digit))-1
-
-				first_list = list(map(int, str(bigger_digit)))
-				second_list = list(map(int, str(smaller_digit)))
-
+				# When the string is clean, it is ready to be sent.
 				summation = evaluate(original_string)
 				line = line.replace(' ', '') 	# Remove spaces from the original line
 				line = line[:-1]			# Remove new line from the end
