@@ -1,4 +1,4 @@
-![Alt Text] (https://im7.ezgif.com/tmp/ezgif-7-e369bdab379f.gif)
+![alt text](https://im7.ezgif.com/tmp/ezgif-7-e369bdab379f.gif)
 --------
 
 How to run the code:
