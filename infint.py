@@ -50,12 +50,6 @@ def find_number_of_digits (num):
 		counter += 1
 	return counter
 
-def check_digit_length (first):
-	num_to_check = str(first)
-	if (len(num_to_check) >= 41):
-		return False
-	return True
-
 def multiplication (first, second):
 
 	bigger_digit = find_bigger_number(int(first), int(second))
@@ -81,8 +75,6 @@ def multiplication (first, second):
 	iteration_tenth_power = 1
 	denominator_tenth_power = 1
 	iteration_result = 0
-
-	# Iterative multiplication loop
 	for i in reversed(range(0, len_of_smaller_digit)):
 		for j in reversed(range(0, len_of_bigger_digit)):
 			iteration_result = iteration_result + (first_list[j]* iteration_tenth_power * second_list[i])
@@ -117,6 +109,7 @@ def addition (first, second):
 
 	# Making the length of two lists even
 	if (len_of_bigger_digit != len_of_smaller_digit):
+		# print ("Fixing length of smaller digit")
 		number_of_zeros = len_of_bigger_digit - len_of_smaller_digit
 		for i in range(0, number_of_zeros):
 			second_list.insert(0,0)
@@ -161,8 +154,6 @@ def evaluate(st):
 	if (st.find(',)') != -1):
 		return "invalid expression"
 
-
-	# Minimalize the string
 	st = st.replace("multiply", "m")
 	st = st.replace("add","a")
 	st = st.replace("(", " ")
@@ -173,7 +164,6 @@ def evaluate(st):
 	loop_debugging = True
 	operations_debugging = True
 
-	# A stack has been used to push and pop the operations/numbers.
 	while (len(stack) != 1):
 		tempstack = []
 		for i in range(0,len(stack)-1):
@@ -190,6 +180,7 @@ def evaluate(st):
 				
 				for j in range(i+2,len(stack)):
 					tempstack.append(str(stack[j]))
+					# break
 				break
 
 			else:
@@ -199,9 +190,11 @@ def evaluate(st):
 	return (tempstack[0])
 
 filename = find_file_name(str(sys.argv),"input=", ";")
+digitsPerNode = sys.argv[len(sys.argv)-1]
 
 with open(filename) as fp:
 	line = fp.readline()
+	line = line.replace(' ', '')			# Clean the line and remove spaces
 	cnt = 1
 
 	# Iterative solution
@@ -217,7 +210,7 @@ with open(filename) as fp:
 			secondnum = (find_between(original_string, ",", ")"))
 
 			if (firstnum == -999):
-				# Means the first number was not found
+				# Means the number was not found
 				line = line[:-1]			# Remove new line from the end
 				print (str(line) + "=invalid expression")
 				pass
@@ -228,15 +221,29 @@ with open(filename) as fp:
 			elif (line == "\n"):
 				# Check for empty line
 				pass
+			elif (int(digitsPerNode[len(digitsPerNode)-1]) > 4):
+				# digitsPerNode cannot be greater than 4
+				line = line[:-1]
+				print (str(line) + "=invalid expression")
+				pass
 			elif(is_balanced(original_string) == False):
 				# If the brackets are not balanced
 				line = line[:-1]
 				print (str(line) + "=invalid expression")
 			else:
-				# When the string is clean, it is ready to be sent.
+				# The numbers are sent to the evaluate function
+				bigger_digit = find_bigger_number(firstnum,secondnum)
+				len_of_bigger_digit = len(str(bigger_digit))-1
+
+				smaller_digit = find_smaller_number(firstnum,secondnum)
+				len_of_smaller_digit = len(str(smaller_digit))-1
+
+				first_list = list(map(int, str(bigger_digit)))
+				second_list = list(map(int, str(smaller_digit)))
+
 				summation = evaluate(original_string)
 				line = line.replace(' ', '') 	# Remove spaces from the original line
-				line = line[:-1]			# Remove new line from the end
+				line = line[:-1]			    # Remove new line from the end
 				print (str(line) + "=" + str(summation))
 
 		line = fp.readline()
