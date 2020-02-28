@@ -147,6 +147,16 @@ def addition (first, second):
 	# print ("Final sum = " + str(sum_of_numbers))
 	return sum_of_numbers
 
+def check_for_commas(st):
+	balance_counter = 0
+
+	for x in st:
+		if x == ",":
+			balance_counter += 1
+		if x == ")":
+			balance_counter -= 1
+	return balance_counter
+
 def evaluate(st):
 	# Check for missing numbers inside the expression
 	if (st.find('(,') != -1):
@@ -190,7 +200,6 @@ def evaluate(st):
 	return (tempstack[0])
 
 filename = find_file_name(str(sys.argv),"input=", ";")
-digitsPerNode = sys.argv[len(sys.argv)-1]
 
 with open(filename) as fp:
 	line = fp.readline()
@@ -221,26 +230,14 @@ with open(filename) as fp:
 			elif (line == "\n"):
 				# Check for empty line
 				pass
-			elif (int(digitsPerNode[len(digitsPerNode)-1]) > 4):
-				# digitsPerNode cannot be greater than 4
-				line = line[:-1]
-				print (str(line) + "=invalid expression")
-				pass
-			elif(is_balanced(original_string) == False):
+			elif (is_balanced(original_string) == False):
 				# If the brackets are not balanced
 				line = line[:-1]
 				print (str(line) + "=invalid expression")
+			elif (check_for_commas(original_string) != 0):
+				line = line[:-1]
+				print (str(line) + "=invalid expression")
 			else:
-				# The numbers are sent to the evaluate function
-				bigger_digit = find_bigger_number(firstnum,secondnum)
-				len_of_bigger_digit = len(str(bigger_digit))-1
-
-				smaller_digit = find_smaller_number(firstnum,secondnum)
-				len_of_smaller_digit = len(str(smaller_digit))-1
-
-				first_list = list(map(int, str(bigger_digit)))
-				second_list = list(map(int, str(smaller_digit)))
-
 				summation = evaluate(original_string)
 				line = line.replace(' ', '') 	# Remove spaces from the original line
 				line = line[:-1]			    # Remove new line from the end
